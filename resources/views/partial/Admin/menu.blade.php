@@ -119,6 +119,10 @@
                                 <a class="nav-link" href="{{ route('leave.index') }}">{{ __('Manage Leave') }}</a>
                             </li>
                         @endcan
+                        <!-- shahrukh -->
+                        <li class="{{ request()->is('shift*') ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('shift.index') }}">{{ __('Shifts') }}</a>
+                        </li>
                     </ul>
                 </li>
             @endif

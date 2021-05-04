@@ -10,9 +10,13 @@
         {{ Form::label('date', __('Date')) }}
         {{ Form::text('date',null, array('class' => 'form-control datepicker','required'=>'required')) }}
     </div>
-    <div class="form-group col-md-6">
+    <!-- <div class="form-group col-md-6">
         {{ Form::label('hours', __('Hours')) }}
         {{ Form::number('hours',null, array('class' => 'form-control','required'=>'required','step'=>'0.01')) }}
+    </div> -->
+    <div class="form-group col-md-6">
+        {{ Form::label('shift_id', __('Shift')) }}
+        {!! Form::select('shift_id', $shifts, null,array('class' => 'form-control font-style select2','required'=>'required')) !!}
     </div>
 </div>
 <div class="row">

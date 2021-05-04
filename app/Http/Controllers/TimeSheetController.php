@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\TimeSheet;
 use App\User;
+use App\Shift;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -37,8 +38,9 @@ class TimeSheetController extends Controller
         if(\Auth::user()->can('Create TimeSheet'))
         {
             $employees = User::where('created_by', '=', \Auth::user()->creatorId())->where('type', '=', "employee")->get()->pluck('name', 'id');
+            $shifts = Shift::all()->pluck('title', 'id');
 
-            return view('timeSheet.create', compact('employees'));
+            return view('timeSheet.create', compact('employees', 'shifts'));
         }
         else
         {
@@ -60,6 +62,7 @@ class TimeSheetController extends Controller
                 $timeSheet->employee_id = $request->employee_id;
             }
 
+            $timeSheet->shift_id   = $request->shift_id;
             $timeSheet->date       = $request->date;
             $timeSheet->hours      = $request->hours;
             $timeSheet->remark     = $request->remark;
@@ -86,9 +89,10 @@ class TimeSheetController extends Controller
         if(\Auth::user()->can('Edit TimeSheet'))
         {
             $employees = User::where('created_by', '=', Auth::user()->creatorId())->where('type', '=', "employee")->get()->pluck('name', 'id');
+            $shifts = Shift::all()->pluck('title', 'id');
             $timeSheet = Timesheet::find($id);
 
-            return view('timeSheet.edit', compact('timeSheet', 'employees'));
+            return view('timeSheet.edit', compact('timeSheet', 'employees', 'shifts'));
         }
         else
         {
@@ -111,6 +115,7 @@ class TimeSheetController extends Controller
                 $timeSheet->employee_id = $request->employee_id;
             }
 
+            $timeSheet->shift_id   = $request->shift_id;
             $timeSheet->date   = $request->date;
             $timeSheet->hours  = $request->hours;
             $timeSheet->remark = $request->remark;

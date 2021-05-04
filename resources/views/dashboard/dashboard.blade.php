@@ -28,7 +28,8 @@
                         </div>
                     </div>
 
-                    <div class="col-lg-6">
+                    <!-- shahrukh -->
+                    <!-- <div class="col-lg-6">
                         <div class="card">
                             <div class="card-header">
                                 <h4>{{__('Mark Attandance')}}</h4>
@@ -60,7 +61,7 @@
 
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <div class="row">
                     <div class="col-lg-6">

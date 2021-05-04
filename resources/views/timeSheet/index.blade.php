@@ -35,7 +35,8 @@
                                                 <th>{{__('Employee')}}</th>
                                             @endif
                                             <th>{{__('Date')}}</th>
-                                            <th>{{__('Hours')}}</th>
+                                            <!-- <th>{{__('Hours')}}</th> -->
+                                            <th>{{__('Shift')}}</th>
                                             <th>{{__('Description')}}</th>
                                             <th width="200px">{{__('Action')}}</th>
                                         </tr>
@@ -48,7 +49,8 @@
                                                     <td>{{!empty(\Auth::user()->getUSerEmployee($timeSheet->employee_id))?\Auth::user()->getUSerEmployee($timeSheet->employee_id)->name:'' }}</td>
                                                 @endif
                                                 <td>{{  \Auth::user()->dateFormat($timeSheet->date) }}</td>
-                                                <td>{{ $timeSheet->hours }}</td>
+                                                <!-- <td>{{ $timeSheet->hours }}</td> -->
+                                                <td>{{ ($timeSheet->shift) ? $timeSheet->shift->title : null }}</td>
                                                 <td>{{ $timeSheet->remark }}</td>
                                                 <td>
                                                     @can('Delete TimeSheet')
