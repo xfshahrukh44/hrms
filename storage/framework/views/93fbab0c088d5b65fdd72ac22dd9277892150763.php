@@ -112,24 +112,16 @@
                                         </tr>
                                         </thead>
                                         <tbody class="details">
-                                        <tr class="entry">
-                                            <td class="value"><?php echo e(__('Saturation Deduction')); ?></td>
-                                            <td class="value">
+                                        <!-- <tr class="entry"> -->
+                                            <!-- <td class="value"><?php echo e(__('Saturation Deduction')); ?></td> -->
+                                            <!-- <td class="value"> -->
                                                 <?php $__currentLoopData = $saturation_deductions; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $deduction): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <div><?php echo e(\Auth::user()->priceFormat($deduction->amount)); ?></div>
+                                                    <!-- <div><?php echo e(\Auth::user()->priceFormat($deduction->amount)); ?></div> -->
                                                     <?php   $totalDiduction+=$deduction->amount ?>
                                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </td>
-                                        </tr>
-                                        <tr class="entry">
-                                            <td class="value"><?php echo e(__('Loan')); ?></td>
-                                            <td class="value">
-                                                <?php $__currentLoopData = $loans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $loan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-                                                    <div><?php echo e(\Auth::user()->priceFormat($loan->amount)); ?></div>
-                                                    <?php   $totalDiduction+=$loan->amount ?>
-                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
-                                            </td>
-                                        </tr>
+                                            <!-- </td> -->
+                                        <!-- </tr> -->
+                                        <!-- deductions -->
                                         <?php
                                             $option = new \App\DeductionOption()
                                         ?>
@@ -141,6 +133,16 @@
                                                 </td>
                                             </tr>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                        <!-- loans -->
+                                        <tr class="entry">
+                                            <td class="value"><?php echo e(__('Loan')); ?></td>
+                                            <td class="value">
+                                                <?php $__currentLoopData = $loans; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $loan): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                                    <div><?php echo e(\Auth::user()->priceFormat($loan->amount)); ?></div>
+                                                    <?php   $totalDiduction+=$loan->amount ?>
+                                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </td>
@@ -170,6 +172,9 @@
                         </div>
                     </div>
                 </div> -->
+                <div class="col-md-12 text-center">
+                    <small><strong>This is a system-generated pay slip. No signature required.</strong></small>
+                </div>
             </div>
         </div>
     </div>

@@ -112,24 +112,16 @@
                                         </tr>
                                         </thead>
                                         <tbody class="details">
-                                        <tr class="entry">
-                                            <td class="value">{{__('Saturation Deduction')}}</td>
-                                            <td class="value">
+                                        <!-- <tr class="entry"> -->
+                                            <!-- <td class="value">{{__('Saturation Deduction')}}</td> -->
+                                            <!-- <td class="value"> -->
                                                 @foreach($saturation_deductions as $deduction)
-                                                    <div>{{ \Auth::user()->priceFormat($deduction->amount)}}</div>
+                                                    <!-- <div>{{ \Auth::user()->priceFormat($deduction->amount)}}</div> -->
                                                     @php   $totalDiduction+=$deduction->amount @endphp
                                                 @endforeach
-                                            </td>
-                                        </tr>
-                                        <tr class="entry">
-                                            <td class="value">{{__('Loan')}}</td>
-                                            <td class="value">
-                                                @foreach($loans as $loan)
-                                                    <div>{{ \Auth::user()->priceFormat($loan->amount)}}</div>
-                                                    @php   $totalDiduction+=$loan->amount @endphp
-                                                @endforeach
-                                            </td>
-                                        </tr>
+                                            <!-- </td> -->
+                                        <!-- </tr> -->
+                                        <!-- deductions -->
                                         @php
                                             $option = new \App\DeductionOption()
                                         @endphp
@@ -141,6 +133,16 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        <!-- loans -->
+                                        <tr class="entry">
+                                            <td class="value">{{__('Loan')}}</td>
+                                            <td class="value">
+                                                @foreach($loans as $loan)
+                                                    <div>{{ \Auth::user()->priceFormat($loan->amount)}}</div>
+                                                    @php   $totalDiduction+=$loan->amount @endphp
+                                                @endforeach
+                                            </td>
+                                        </tr>
                                         </tbody>
                                     </table>
                                 </td>
@@ -169,6 +171,9 @@
                         </div>
                     </div>
                 </div> -->
+                <div class="col-md-12 text-center">
+                    <small><strong>This is a system-generated pay slip. No signature required.</strong></small>
+                </div>
             </div>
         </div>
     </div>
