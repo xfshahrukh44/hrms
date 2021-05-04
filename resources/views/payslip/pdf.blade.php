@@ -16,12 +16,14 @@
                         <table>
                             <tbody>
                             <tr>
-                                <td width="1%"><img src="{{$logo.'/'.(isset($company_logo) && !empty($company_logo)?$company_logo:'logo.png')}}" width="250px;" alt=""></td>
+                                <td width="1%"></td>
                                 <td class="text-right" colspan="2">
                                     <address style="margin-top:10px">
-                                        <strong style="font-size: 30px; ">{{\Utility::getValByName('company_name')}}</strong><br>
-                                        {{\Utility::getValByName('company_address')}} , {{\Utility::getValByName('company_city')}}, {{\Utility::getValByName('company_state')}}-{{\Utility::getValByName('company_zipcode')}}<br>
-                                        <span style="font-weight: bold;"> {{__('Salary Slip')}} - {{ \Auth::user()->dateFormat( $payslip->salary_month)}}</span>
+                                        <div class="col-md-6 float-right">
+                                            <img src="{{$logo.'/'.(isset($company_logo) && !empty($company_logo)?$company_logo:'logo.png')}}" alt=""><br>
+                                            <p style="margin: 0rem;">{{\Utility::getValByName('company_address')}} , {{\Utility::getValByName('company_city')}}, {{\Utility::getValByName('company_state')}}-{{\Utility::getValByName('company_zipcode')}}</p>
+                                            <div style="font-weight: bold;"> {{__('Salary Slip')}} - {{ \Auth::user()->dateFormat( $payslip->salary_month)}}</div>
+                                        </div>
                                     </address>
                                 </td>
                             </tr>
@@ -30,7 +32,7 @@
                         <div id="details">
                             <div class="scope-entry">
                                 <div class="title">{{__('Employee Name')}} : {{$employee->name}}</div>
-                                <div class="title">{{__('Position')}} : {{__('Employee')}}</div>
+                                <div class="title">{{__('Designation')}} : {{($employee->designation) ? ($employee->designation->name) : null}}</div>
                                 <div class="title">{{__('Salary Date')}} : {{\Auth::user()->dateFormat( $employee->created_at)}}</div>
                             </div>
                         </div>
@@ -50,7 +52,7 @@
                             <tbody>
                             <tr>
                                 <td class="left-panel" style="border-right: 1px solid #ccc;">
-                                    <table class="" width="100%">
+                                    <table class="" width="100%" height="100%">
                                         <thead>
                                         <tr class="employee">
                                             <th class="name text-center" colspan="2" style="border-bottom: 1px solid #ccc;">{{__('Earnings')}}</th>
@@ -103,7 +105,7 @@
                                     </table>
                                 </td>
                                 <td class="right-panel">
-                                    <table class="" width="100%">
+                                    <table class="" width="100%" height="100%">
                                         <thead>
                                         <tr class="employee">
                                             <th class="name text-center" colspan="2" style="border-bottom: 1px solid #ccc;">{{__('Deduction')}}</th>
@@ -128,25 +130,17 @@
                                                 @endforeach
                                             </td>
                                         </tr>
-                                        <tr class="entry">
-                                            <td class="value">-</td>
-                                            <td class="value">
-                                                <div>-</div>
-                                            </td>
-                                        </tr>
-                                        <tr class="entry">
-                                            <td class="value">-</td>
-                                            <td class="value">
-                                                <div>-</div>
-                                            </td>
-                                        </tr>
-                                        <tr class="entry">
-                                            <td class="value">-</td>
-                                            <td class="value">
-                                                <div>-</div>
-                                            </td>
-                                        </tr>
-
+                                        @php
+                                            $option = new \App\DeductionOption()
+                                        @endphp
+                                        @foreach($saturation_deductions as $deduction)
+                                            <tr class="entry">
+                                                <td class="value">{{ $option->get_name($deduction->deduction_option) . ' | ' . $deduction->title }}</td>
+                                                <td class="value">
+                                                    <div>{{ \Auth::user()->priceFormat($deduction->amount) }}</div>
+                                                </td>
+                                            </tr>
+                                        @endforeach
                                         </tbody>
                                     </table>
                                 </td>
@@ -163,7 +157,7 @@
                     </div>
                 </div>
 
-                <div class="row">
+                <!-- <div class="row">
                     <div class="col-sm-6">
                         <div style="float:left;text-align:center;border-top:1px solid #e4e5e7;font-weight: bold;">
                             <p class="mt-2">{{__('Employee Signature')}}</p>
@@ -174,7 +168,7 @@
                             <p class="mt-2"> {{__('Paid By')}}</p>
                         </div>
                     </div>
-                </div>
+                </div> -->
             </div>
         </div>
     </div>
