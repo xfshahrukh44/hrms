@@ -51,7 +51,7 @@
                                                 <?php endif; ?>
                                                 <td><?php echo e(\Auth::user()->dateFormat($timeSheet->date)); ?></td>
                                                 <!-- <td><?php echo e($timeSheet->hours); ?></td> -->
-                                                <td><?php echo e(($timeSheet->shift) ? $timeSheet->shift->title : null); ?></td>
+                                                <td><?php echo e(($timeSheet->shift) ? ($timeSheet->shift->title . ' ['. \Carbon\Carbon::parse($timeSheet->shift->start_time)->format('h:i A') .' - '. \Carbon\Carbon::parse($timeSheet->shift->end_time)->format('h:i A') .']') : null); ?></td>
                                                 <td><?php echo e($timeSheet->remark); ?></td>
                                                 <td>
                                                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Delete TimeSheet')): ?>

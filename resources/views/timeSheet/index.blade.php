@@ -50,7 +50,7 @@
                                                 @endif
                                                 <td>{{  \Auth::user()->dateFormat($timeSheet->date) }}</td>
                                                 <!-- <td>{{ $timeSheet->hours }}</td> -->
-                                                <td>{{ ($timeSheet->shift) ? $timeSheet->shift->title : null }}</td>
+                                                <td>{{ ($timeSheet->shift) ? ($timeSheet->shift->title . ' ('. \Carbon\Carbon::parse($timeSheet->shift->start_time)->format('h:i A') .' - '. \Carbon\Carbon::parse($timeSheet->shift->end_time)->format('h:i A') .')') : null }}</td>
                                                 <td>{{ $timeSheet->remark }}</td>
                                                 <td>
                                                     @can('Delete TimeSheet')
