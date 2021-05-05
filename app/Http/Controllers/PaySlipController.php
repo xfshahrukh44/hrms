@@ -249,6 +249,7 @@ class PaySlipController extends Controller
         {
             $employee->status = 1;
             $employee->save();
+            $this->send($employee->employee_id, $date);
         }
 
         return redirect()->route('payslip.index')->with('success', __('Payslip Bulk Payment successfully.'));
