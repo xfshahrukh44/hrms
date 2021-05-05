@@ -8,7 +8,7 @@ use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 use Carbon\Carbon;
 
-class PayslipSend extends Mailable implements ShouldQueue
+class PayslipSend extends Mailable
 {
     use Queueable, SerializesModels;
 
