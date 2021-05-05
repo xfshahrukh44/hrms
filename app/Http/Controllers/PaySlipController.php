@@ -294,7 +294,7 @@ class PaySlipController extends Controller
         {
             try
             {
-                Mail::to($payslip->email)->send(new PayslipSend($payslip, $month));
+                Mail::to($payslip->email)->queue(new PayslipSend($payslip, $month));
             }
             catch(\Exception $e)
             {
