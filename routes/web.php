@@ -384,7 +384,7 @@ Route::get('payslip/employeepayslip', 'PaySlipController@employeepayslip')->name
         'XSS',
     ]
 );
-Route::get('payslip/showemployee/{id}', 'PaySlipController@showemployee')->name('payslip.showemployee')->middleware(
+Route::get('payslip/showemployee/{id}/{month}', 'PaySlipController@showemployee')->name('payslip.showemployee')->middleware(
     [
         'auth',
         'XSS',

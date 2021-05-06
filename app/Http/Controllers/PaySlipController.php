@@ -126,9 +126,9 @@ class PaySlipController extends Controller
 
     }
 
-    public function showemployee($paySlip)
+    public function showemployee($paySlip, $month)
     {
-        $payslip = PaySlip::find($paySlip);
+        $payslip = PaySlip::where('employee_id', $paySlip)->where('salary_month', $month)->first();
         return view('payslip.show', compact('payslip'));
     }
 
@@ -223,6 +223,7 @@ class PaySlipController extends Controller
         {
             $employeePayslip->status = 1;
             $employeePayslip->save();
+            $this->send($employeePayslip->employee_id, $date);
 
             return redirect()->route('payslip.index')->with('success', __('Payslip Payment successfully.'));
         }

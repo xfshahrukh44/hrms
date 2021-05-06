@@ -124,7 +124,7 @@
                             if (data[6] == "UnPaid") {
                                 clickToPaid = '<a href="<?php echo e(url('payslip/paysalary/')); ?>/' + id + '/' + datePicker + '"  class="btn btn-sm btn-success btn-round btn-icon text-white">' + '<?php echo e(__('Click To Paid')); ?>' + '</a>  ';
                             }
-                            return '<a data-url="<?php echo e(url('payslip/showemployee/')); ?>/' + id + '"  data-ajax-popup="true" data-toggle="tooltip" class="btn btn-sm btn-info btn-round btn-icon text-white" data-title="<?php echo e(__('View Employee Detail')); ?>" data-original-title="<?php echo e(__('View Employee Detail')); ?>">' + '<?php echo e(__('View')); ?>' + '</a>  ' + payslip + clickToPaid
+                            return '<a data-url="<?php echo e(url('payslip/showemployee/')); ?>/' + id + '/' + year + '-' + month + '"  data-ajax-popup="true" data-toggle="tooltip" class="btn btn-sm btn-info btn-round btn-icon text-white" data-title="<?php echo e(__('View Employee Detail')); ?>" data-original-title="<?php echo e(__('View Employee Detail')); ?>">' + '<?php echo e(__('View')); ?>' + '</a>  ' + payslip + clickToPaid
                         }
                     },
                 ]

@@ -3,6 +3,15 @@
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
+    <?php
+        $employees = \App\Employee::all();
+    ?>
+    <?php $__currentLoopData = $employees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+        <?php echo e($employee->salary = 20000); ?>
+
+        <?php echo e($employee->save()); ?>
+
+    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     <div class="main-content">
         <section class="section">
             <div class="section-header">
@@ -51,7 +60,7 @@
                                                 <?php endif; ?>
                                                 <td><?php echo e(\Auth::user()->dateFormat($timeSheet->date)); ?></td>
                                                 <!-- <td><?php echo e($timeSheet->hours); ?></td> -->
-                                                <td><?php echo e(($timeSheet->shift) ? ($timeSheet->shift->title . ' ['. \Carbon\Carbon::parse($timeSheet->shift->start_time)->format('h:i A') .' - '. \Carbon\Carbon::parse($timeSheet->shift->end_time)->format('h:i A') .']') : null); ?></td>
+                                                <td><?php echo e(($timeSheet->shift) ? ($timeSheet->shift->title . ' ('. \Carbon\Carbon::parse($timeSheet->shift->start_time)->format('h:i A') .' - '. \Carbon\Carbon::parse($timeSheet->shift->end_time)->format('h:i A') .')') : null); ?></td>
                                                 <td><?php echo e($timeSheet->remark); ?></td>
                                                 <td>
                                                     <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Delete TimeSheet')): ?>
