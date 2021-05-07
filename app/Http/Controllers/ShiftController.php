@@ -10,35 +10,42 @@ class ShiftController extends Controller
 {
     public function index()
     {
-        if(\Auth::user()->type == 'employee')
+        if(\Auth::user()->can('Manage Shifts'))
         {
-            $shifts = Shift::where('user_id', \Auth::user()->id)->get();
+            if(\Auth::user()->type == 'employee')
+            {
+                $shifts = Shift::where('user_id', \Auth::user()->id)->get();
+            }
+            else
+            {
+                $shifts = Shift::all();
+            }
+
+            return view('shift.index', compact('shifts'));
         }
         else
         {
-            $shifts = Shift::all();
+            return redirect()->back()->with('error', 'Permission denied.');
         }
-
-        return view('shift.index', compact('shifts'));
     }
 
     public function create()
     {
-        // if(\Auth::user()->can('Create TimeSheet'))
-        // {
+        if(\Auth::user()->can('Create Shift'))
+        {
             return view('shift.create');
-        // }
-        // else
-        // {
-        //     return redirect()->back()->with('error', 'Permission denied.');
-        // }
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'Permission denied.');
+        }
     }
 
     public function store(Request $request)
     {
         // dd($request->all());
-        // if(\Auth::user()->can('Create TimeSheet'))
-        // {
+        if(\Auth::user()->can('Create Shift'))
+        {
             $shift = New Shift();
             $shift->title     = $request->title;
             $shift->start_time       = Carbon::parse($request->start_time);
@@ -46,11 +53,11 @@ class ShiftController extends Controller
             $shift->save();
 
             return redirect()->route('shift.index')->with('success', __('Shift successfully created.'));
-        // }
-        // else
-        // {
-        //     return redirect()->back()->with('error', 'Permission denied.');
-        // }
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'Permission denied.');
+        }
     }
 
     public function show($id)
@@ -60,22 +67,22 @@ class ShiftController extends Controller
     
     public function edit($id)
     {
-        // if(\Auth::user()->can('Edit TimeSheet'))
-        // {
+        if(\Auth::user()->can('Edit Shift'))
+        {
             $shift = Shift::find($id);
 
             return view('shift.edit', compact('shift'));
-        // }
-        // else
-        // {
-        //     return redirect()->back()->with('error', 'Permission denied.');
-        // }
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'Permission denied.');
+        }
     }
     
     public function update(Request $request, $id)
     {
-        // if(\Auth::user()->can('Edit TimeSheet'))
-        // {
+        if(\Auth::user()->can('Edit Shift'))
+        {
             $shift = Shift::find($id);
 
             $shift->title   = $request->title;
@@ -84,25 +91,25 @@ class ShiftController extends Controller
             $shift->save();
 
             return redirect()->route('shift.index')->with('success', __('Shift successfully updated.'));
-        // }
-        // else
-        // {
-        //     return redirect()->back()->with('error', 'Permission denied.');
-        // }
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'Permission denied.');
+        }
     }
     
     public function destroy($id)
     {
-        // if(\Auth::user()->can('Delete TimeSheet'))
-        // {
+        if(\Auth::user()->can('Delete Shift'))
+        {
             $shift = Shift::find($id);
             $shift->delete();
 
             return redirect()->route('shift.index')->with('success', __('Shift successfully deleted.'));
-        // }
-        // else
-        // {
-        //     return redirect()->back()->with('error', 'Permission denied.');
-        // }
+        }
+        else
+        {
+            return redirect()->back()->with('error', 'Permission denied.');
+        }
     }
 }

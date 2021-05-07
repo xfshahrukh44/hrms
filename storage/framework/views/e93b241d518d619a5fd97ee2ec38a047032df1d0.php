@@ -3,15 +3,6 @@
 
 <?php $__env->stopSection(); ?>
 <?php $__env->startSection('content'); ?>
-    <?php
-        $employees = \App\Employee::all();
-    ?>
-    <?php $__currentLoopData = $employees; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $employee): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-        <?php echo e($employee->salary = 20000); ?>
-
-        <?php echo e($employee->save()); ?>
-
-    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
     <div class="main-content">
         <section class="section">
             <div class="section-header">

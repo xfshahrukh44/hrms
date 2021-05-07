@@ -52,6 +52,18 @@ class TimeSheetController extends Controller
     {
         if(\Auth::user()->can('Create TimeSheet'))
         {
+            $validator = \Validator::make(
+                $request->all(), [
+                                   'employee_id' => 'required|unique:time_sheets',
+                               ]
+            );
+            if($validator->fails())
+            {
+                $messages = $validator->getMessageBag();
+
+                return redirect()->back()->with('error', $messages->first());
+            }
+
             $timeSheet = new Timesheet();
             if(\Auth::user()->type == 'employee')
             {
@@ -104,6 +116,17 @@ class TimeSheetController extends Controller
     {
         if(\Auth::user()->can('Edit TimeSheet'))
         {
+            $validator = \Validator::make(
+                $request->all(), [
+                                   'employee_id' => 'required|unique:time_sheets,employee_id,'.$id,
+                               ]
+            );
+            if($validator->fails())
+            {
+                $messages = $validator->getMessageBag();
+
+                return redirect()->back()->with('error', $messages->first());
+            }
 
             $timeSheet = Timesheet::find($id);
             if(\Auth::user()->type == 'employee')

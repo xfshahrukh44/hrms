@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\LoanOption;
 
 class LoanOption extends Model
 {
@@ -10,4 +11,9 @@ class LoanOption extends Model
         'name',
         'created_by',
     ];
+
+    public function get_name($id)
+    {
+        return (LoanOption::find($id))->name;
+    }
 }

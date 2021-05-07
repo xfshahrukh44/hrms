@@ -16,12 +16,12 @@ class TimeSheet extends Model
 
     public function employee()
     {
-        return $this->hasOne('App\Employee', 'employee_id', 'employee_id');
+        return $this->belongsTo('App\Employee', 'employee_id', 'employee_id');
     }
 
     public function employees()
     {
-        return $this->hasOne('App\Employee', 'user_id', 'employee_id');
+        return $this->belongsTo('App\Employee', 'user_id', 'employee_id');
     }
 
     public function shift()

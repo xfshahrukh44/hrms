@@ -65,42 +65,55 @@
                                                 <div>{{  \Auth::user()->priceFormat( $payslip->basic_salary)}}</div>
                                             </td>
                                         </tr>
-                                        <tr class="entry">
-                                            <td class="value">{{__('Allowance')}}</td>
-                                            <td class="value">
-                                                @foreach($allowances as $allownace)
-                                                    <div>{{ \Auth::user()->priceFormat($allownace->amount)}}</div>
-                                                    @php   $totalEarning+=$allownace->amount @endphp
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                        <tr class="entry">
-                                            <td class="value">{{__('Commission')}}</td>
-                                            <td class="value">
-                                                @foreach($commissions as $commission)
-                                                    <div>{{ \Auth::user()->priceFormat($commission->amount)}}</div>
-                                                    @php   $totalEarning+=$commission->amount @endphp
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                        <tr class="entry">
-                                            <td class="value">{{__('Other Payment')}}</td>
-                                            <td class="value">
-                                                @foreach($other_payments as $payment)
-                                                    <div>{{ \Auth::user()->priceFormat($payment->amount)}}</div>
-                                                    @php   $totalEarning+=$payment->amount @endphp
-                                                @endforeach
-                                            </td>
-                                        </tr>
-                                        <tr class="entry">
-                                            <td class="value">{{__('Overtime')}}</td>
-                                            <td class="value">
-                                                @foreach($overtimes as $overtime)
-                                                    <div>{{ \Auth::user()->priceFormat($overtime->rate)}}</div>
-                                                    @php   $totalEarning+=$overtime->rate @endphp
-                                                @endforeach
-                                            </td>
-                                        </tr>
+                                        <!-- allowances -->
+                                        @if(count($allowances) > 0)
+                                            @php $option = new \App\AllowanceOption(); @endphp
+                                            @foreach($allowances as $allowance)
+                                                <tr class="entry">
+                                                    <td class="value">{{ $option->get_name($allowance->allowance_option) . ' | ' . $allowance->title }}</td>
+                                                    <td class="value">
+                                                            <div>{{ \Auth::user()->priceFormat($allowance->amount)}}</div>
+                                                            @php   $totalEarning+=$allowance->amount @endphp
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                        <!-- commissions -->
+                                        @if(count($commissions) > 0)
+                                            @foreach($commissions as $commission)
+                                                <tr class="entry">
+                                                    <td class="value">{{$commission->title}}</td>
+                                                    <td class="value">
+                                                        <div>{{ \Auth::user()->priceFormat($commission->amount)}}</div>
+                                                        @php   $totalEarning+=$commission->amount @endphp
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                        <!-- other payment -->
+                                        @if(count($other_payments) > 0)
+                                            @foreach($other_payments as $payment)
+                                                <tr class="entry">
+                                                    <td class="value">{{$payment->title}}</td>
+                                                    <td class="value">
+                                                        <div>{{ \Auth::user()->priceFormat($payment->amount)}}</div>
+                                                        @php   $totalEarning+=$payment->amount @endphp
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
+                                        <!-- overtime -->
+                                        @if(count($overtimes) > 0)
+                                            @foreach($overtimes as $overtime)
+                                                <tr class="entry">
+                                                    <td class="value">{{$overtime->title}}</td>
+                                                    <td class="value">
+                                                        <div>{{ \Auth::user()->priceFormat($overtime->rate)}}</div>
+                                                        @php   $totalEarning+=$overtime->rate @endphp
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                         </tbody>
                                     </table>
                                 </td>
@@ -112,37 +125,32 @@
                                         </tr>
                                         </thead>
                                         <tbody class="details">
-                                        <!-- <tr class="entry"> -->
-                                            <!-- <td class="value">{{__('Saturation Deduction')}}</td> -->
-                                            <!-- <td class="value"> -->
-                                                @foreach($saturation_deductions as $deduction)
-                                                    <!-- <div>{{ \Auth::user()->priceFormat($deduction->amount)}}</div> -->
-                                                    @php   $totalDiduction+=$deduction->amount @endphp
-                                                @endforeach
-                                            <!-- </td> -->
-                                        <!-- </tr> -->
                                         <!-- deductions -->
-                                        @php
-                                            $option = new \App\DeductionOption()
-                                        @endphp
-                                        @foreach($saturation_deductions as $deduction)
-                                            <tr class="entry">
-                                                <td class="value">{{ $option->get_name($deduction->deduction_option) . ' | ' . $deduction->title }}</td>
-                                                <td class="value">
-                                                    <div>{{ \Auth::user()->priceFormat($deduction->amount) }}</div>
-                                                </td>
-                                            </tr>
-                                        @endforeach
+                                        @if(count($allowances) > 0)
+                                            @php $option = new \App\DeductionOption(); @endphp
+                                            @foreach($saturation_deductions as $deduction)
+                                                <tr class="entry">
+                                                    <td class="value">{{ $option->get_name($deduction->deduction_option) . ' | ' . $deduction->title }}</td>
+                                                    <td class="value">
+                                                        <div>{{ \Auth::user()->priceFormat($deduction->amount) }}</div>
+                                                        @php   $totalDiduction+=$deduction->amount @endphp
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                         <!-- loans -->
-                                        <tr class="entry">
-                                            <td class="value">{{__('Loan')}}</td>
-                                            <td class="value">
-                                                @foreach($loans as $loan)
-                                                    <div>{{ \Auth::user()->priceFormat($loan->amount)}}</div>
-                                                    @php   $totalDiduction+=$loan->amount @endphp
-                                                @endforeach
-                                            </td>
-                                        </tr>
+                                        @if(count($loans) > 0)
+                                            @php $option = new \App\LoanOption(); @endphp
+                                            @foreach($loans as $loan)
+                                                <tr class="entry">
+                                                    <td class="value">{{ $option->get_name($loan->loan_option) . ' | ' . $loan->title }}</td>
+                                                    <td class="value">
+                                                        <div>{{ \Auth::user()->priceFormat($loan->amount)}}</div>
+                                                        @php   $totalDiduction+=$loan->amount @endphp
+                                                    </td>
+                                                </tr>
+                                            @endforeach
+                                        @endif
                                         </tbody>
                                     </table>
                                 </td>

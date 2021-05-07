@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\AttendanceEmployee;
 use App\User;
 use App\Utility;
+use App\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -97,8 +98,12 @@ class AttendanceEmployeeController extends Controller
                 return redirect()->back()->with('error', $messages->first());
             }
 
-            $startTime  = Utility::getValByName('company_start_time');
-            $endTime    = Utility::getValByName('company_end_time');
+            $employee = Employee::find($request->employee_id);
+
+            // $startTime  = Utility::getValByName('company_start_time');
+            $startTime  = $employee->time_sheet->shift->start_time;
+            // $endTime    = Utility::getValByName('company_end_time');
+            $endTime    = $employee->time_sheet->shift->end_time;
             $attendance = AttendanceEmployee::where('employee_id', '=', $request->employee_id)->where('date', '=', $request->date)->where('clock_out', '=', '00:00:00')->get()->toArray();
             if($attendance)
             {
@@ -176,8 +181,11 @@ class AttendanceEmployeeController extends Controller
 
     public function update(Request $request, $id)
     {
-        $startTime = Utility::getValByName('company_start_time');
-        $endTime   = Utility::getValByName('company_end_time');
+        $employee = Employee::find($request->employee_id);
+        // $startTime = Utility::getValByName('company_start_time');
+        $startTime  = $employee->time_sheet->shift->start_time;
+        // $endTime   = Utility::getValByName('company_end_time');
+        $endTime    = $employee->time_sheet->shift->end_time;
         if(Auth::user()->type == 'employee')
         {
 

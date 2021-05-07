@@ -119,10 +119,12 @@
                                 <a class="nav-link" href="<?php echo e(route('leave.index')); ?>"><?php echo e(__('Manage Leave')); ?></a>
                             </li>
                         <?php endif; ?>
-                        <!-- shahrukh -->
-                        <li class="<?php echo e(request()->is('shift*') ? 'active' : ''); ?>">
-                            <a class="nav-link" href="<?php echo e(route('shift.index')); ?>"><?php echo e(__('Shifts')); ?></a>
-                        </li>
+                        <?php if (app(\Illuminate\Contracts\Auth\Access\Gate::class)->check('Manage Shifts')): ?>
+                            <!-- shahrukh -->
+                            <li class="<?php echo e(request()->is('shift*') ? 'active' : ''); ?>">
+                                <a class="nav-link" href="<?php echo e(route('shift.index')); ?>"><?php echo e(__('Shifts')); ?></a>
+                            </li>
+                        <?php endif; ?>
                     </ul>
                 </li>
             <?php endif; ?>
