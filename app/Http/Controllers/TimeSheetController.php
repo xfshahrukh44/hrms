@@ -54,7 +54,8 @@ class TimeSheetController extends Controller
         {
             $validator = \Validator::make(
                 $request->all(), [
-                                   'employee_id' => 'required|unique:time_sheets',
+                                //    'employee_id' => 'required|unique:time_sheets',
+                                'date_to' => 'after_or_equal:date',
                                ]
             );
             if($validator->fails())
@@ -76,6 +77,7 @@ class TimeSheetController extends Controller
 
             $timeSheet->shift_id   = $request->shift_id;
             $timeSheet->date       = $request->date;
+            $timeSheet->date_to       = $request->date_to;
             $timeSheet->hours      = $request->hours;
             $timeSheet->remark     = $request->remark;
             $timeSheet->created_by = \Auth::user()->creatorId();
@@ -118,7 +120,8 @@ class TimeSheetController extends Controller
         {
             $validator = \Validator::make(
                 $request->all(), [
-                                   'employee_id' => 'required|unique:time_sheets,employee_id,'.$id,
+                                //    'employee_id' => 'required|unique:time_sheets,employee_id,'.$id,
+                                'date_to' => 'after_or_equal:date',
                                ]
             );
             if($validator->fails())
@@ -140,6 +143,7 @@ class TimeSheetController extends Controller
 
             $timeSheet->shift_id   = $request->shift_id;
             $timeSheet->date   = $request->date;
+            $timeSheet->date_to   = $request->date_to;
             $timeSheet->hours  = $request->hours;
             $timeSheet->remark = $request->remark;
             $timeSheet->save();

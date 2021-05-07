@@ -35,7 +35,8 @@
                                             <?php if(\Auth::user()->type!='employee'): ?>
                                                 <th><?php echo e(__('Employee')); ?></th>
                                             <?php endif; ?>
-                                            <th><?php echo e(__('Date')); ?></th>
+                                            <th><?php echo e(__('Date from')); ?></th>
+                                            <th><?php echo e(__('Date to')); ?></th>
                                             <!-- <th><?php echo e(__('Hours')); ?></th> -->
                                             <th><?php echo e(__('Shift')); ?></th>
                                             <th><?php echo e(__('Description')); ?></th>
@@ -50,6 +51,7 @@
                                                     <td><?php echo e(!empty(\Auth::user()->getUSerEmployee($timeSheet->employee_id))?\Auth::user()->getUSerEmployee($timeSheet->employee_id)->name:''); ?></td>
                                                 <?php endif; ?>
                                                 <td><?php echo e(\Auth::user()->dateFormat($timeSheet->date)); ?></td>
+                                                <td><?php echo e(\Auth::user()->dateFormat($timeSheet->date_to ? $timeSheet->date_to : null)); ?></td>
                                                 <!-- <td><?php echo e($timeSheet->hours); ?></td> -->
                                                 <td><?php echo e(($timeSheet->shift) ? ($timeSheet->shift->title . ' ('. \Carbon\Carbon::parse($timeSheet->shift->start_time)->format('h:i A') .' - '. \Carbon\Carbon::parse($timeSheet->shift->end_time)->format('h:i A') .')') : null); ?></td>
                                                 <td><?php echo e($timeSheet->remark); ?></td>

@@ -45,6 +45,9 @@
 <script src="<?php echo e(asset('assets/default/render/bootstrap-toastr/toastr.min.js')); ?>"></script>
 <script src="<?php echo e(asset('assets/modules/bootstrap-timepicker/js/bootstrap-timepicker.js')); ?>"></script>
 
+<!-- daterange picker -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.min.js"></script>
+
 <?php if(\Auth::user()->type != 'super admin'): ?>
     <script src="https://js.pusher.com/5.0/pusher.min.js"></script>
     <script>

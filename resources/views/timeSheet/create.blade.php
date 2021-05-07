@@ -6,11 +6,15 @@
             {!! Form::select('employee_id', $employees, null,array('class' => 'form-control font-style select2','required'=>'required')) !!}
         </div>
     @endif
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
         {{ Form::label('date', __('Date')) }}
         {{ Form::text('date', '', array('class' => 'form-control datepicker','required'=>'required')) }}
     </div>
-    <div class="form-group col-md-6">
+    <div class="form-group col-md-4">
+        {{ Form::label('date_to', __('Date')) }}
+        {{ Form::text('date_to', '', array('class' => 'form-control datepicker','required'=>'required')) }}
+    </div>
+    <div class="form-group col-md-4">
         {{ Form::label('shift_id', __('Shift')) }}
         {!! Form::select('shift_id', $shifts, null,array('class' => 'form-control font-style select2','required'=>'required')) !!}
     </div>

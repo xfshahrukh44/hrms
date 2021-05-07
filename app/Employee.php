@@ -32,9 +32,14 @@ class Employee extends Model
         'created_by',
     ];
 
-    public function time_sheet()
+    public function time_sheets()
     {
-        return $this->hasOne('App\TimeSheet');
+        return $this->hasMany('App\TimeSheet');
+    }
+
+    public function time_sheet($date)
+    {
+        return $this->hasMany('App\TimeSheet')->whereDate('date', '<=', $date)->whereDate('date_to', '>=', $date)->latest()->first();
     }
 
     public function documents()

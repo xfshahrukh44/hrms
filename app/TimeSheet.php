@@ -10,6 +10,7 @@ class TimeSheet extends Model
         'employee_id',
         'shift_id',
         'date',
+        'date_to',
         'hours',
         'remark',
     ];

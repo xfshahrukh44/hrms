@@ -360,6 +360,10 @@
             var arrEvents ={!! $arrEvents !!}
         </script>
         <script src="{{ asset('assets/js/page/modules-calendar.js') }}"></script>
+        <!-- timesheet -->
+        <script>
+            $('input .daterangepicker').daterangepicker();
+        </script>
     @endpush
 @endsection
 

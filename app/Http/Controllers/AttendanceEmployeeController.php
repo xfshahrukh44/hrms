@@ -101,9 +101,9 @@ class AttendanceEmployeeController extends Controller
             $employee = Employee::find($request->employee_id);
 
             // $startTime  = Utility::getValByName('company_start_time');
-            $startTime  = $employee->time_sheet->shift->start_time;
+            $startTime  = $employee->time_sheet($request->date)->shift->start_time;
             // $endTime    = Utility::getValByName('company_end_time');
-            $endTime    = $employee->time_sheet->shift->end_time;
+            $endTime    = $employee->time_sheet($request->date)->shift->end_time;
             $attendance = AttendanceEmployee::where('employee_id', '=', $request->employee_id)->where('date', '=', $request->date)->where('clock_out', '=', '00:00:00')->get()->toArray();
             if($attendance)
             {
@@ -183,9 +183,9 @@ class AttendanceEmployeeController extends Controller
     {
         $employee = Employee::find($request->employee_id);
         // $startTime = Utility::getValByName('company_start_time');
-        $startTime  = $employee->time_sheet->shift->start_time;
+        $startTime  = $employee->time_sheet($request->date)->shift->start_time;
         // $endTime   = Utility::getValByName('company_end_time');
-        $endTime    = $employee->time_sheet->shift->end_time;
+        $endTime    = $employee->time_sheet($request->date)->shift->end_time;
         if(Auth::user()->type == 'employee')
         {
 

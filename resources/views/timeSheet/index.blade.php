@@ -34,7 +34,8 @@
                                             @if(\Auth::user()->type!='employee')
                                                 <th>{{__('Employee')}}</th>
                                             @endif
-                                            <th>{{__('Date')}}</th>
+                                            <th>{{__('Date from')}}</th>
+                                            <th>{{__('Date to')}}</th>
                                             <!-- <th>{{__('Hours')}}</th> -->
                                             <th>{{__('Shift')}}</th>
                                             <th>{{__('Description')}}</th>
@@ -49,6 +50,7 @@
                                                     <td>{{!empty(\Auth::user()->getUSerEmployee($timeSheet->employee_id))?\Auth::user()->getUSerEmployee($timeSheet->employee_id)->name:'' }}</td>
                                                 @endif
                                                 <td>{{  \Auth::user()->dateFormat($timeSheet->date) }}</td>
+                                                <td>{{  \Auth::user()->dateFormat($timeSheet->date_to ? $timeSheet->date_to : null) }}</td>
                                                 <!-- <td>{{ $timeSheet->hours }}</td> -->
                                                 <td>{{ ($timeSheet->shift) ? ($timeSheet->shift->title . ' ('. \Carbon\Carbon::parse($timeSheet->shift->start_time)->format('h:i A') .' - '. \Carbon\Carbon::parse($timeSheet->shift->end_time)->format('h:i A') .')') : null }}</td>
                                                 <td>{{ $timeSheet->remark }}</td>
