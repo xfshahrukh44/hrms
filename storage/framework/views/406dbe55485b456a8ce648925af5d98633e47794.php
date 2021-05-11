@@ -373,6 +373,10 @@
 
         </script>
         <script src="<?php echo e(asset('assets/js/page/modules-calendar.js')); ?>"></script>
+        <!-- timesheet -->
+        <script>
+            $('input .daterangepicker').daterangepicker();
+        </script>
     <?php $__env->stopPush(); ?>
 <?php $__env->stopSection(); ?>
 

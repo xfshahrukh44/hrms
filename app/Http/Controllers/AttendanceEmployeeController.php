@@ -100,14 +100,19 @@ class AttendanceEmployeeController extends Controller
 
             $employee = Employee::find($request->employee_id);
 
+            if($employee->time_sheet($request->date) == NULL){
+                return redirect()->back()->with('error', 'No employee timesheet found having specified date.');
+            }
+
             // $startTime  = Utility::getValByName('company_start_time');
             $startTime  = $employee->time_sheet($request->date)->shift->start_time;
             // $endTime    = Utility::getValByName('company_end_time');
             $endTime    = $employee->time_sheet($request->date)->shift->end_time;
-            $attendance = AttendanceEmployee::where('employee_id', '=', $request->employee_id)->where('date', '=', $request->date)->where('clock_out', '=', '00:00:00')->get()->toArray();
+            // $attendance = AttendanceEmployee::where('employee_id', '=', $request->employee_id)->where('date', '=', $request->date)->where('clock_out', '=', '00:00:00')->get()->toArray();
+            $attendance = AttendanceEmployee::where('employee_id', '=', $request->employee_id)->where('date', '=', $request->date)->get()->toArray();
             if($attendance)
             {
-                return redirect()->route('attendanceemployee.index')->with('error', __('Employee Attendance Already Created.'));
+                return redirect()->route('attendanceemployee.index')->with('error', __('Employee attendance already created for the specified date.'));
             }
             else
             {
@@ -182,10 +187,20 @@ class AttendanceEmployeeController extends Controller
     public function update(Request $request, $id)
     {
         $employee = Employee::find($request->employee_id);
+
+        if($employee->time_sheet($request->date) == NULL){
+            return redirect()->back()->with('error', 'No employee timesheet found having specified date.');
+        }
+        
         // $startTime = Utility::getValByName('company_start_time');
         $startTime  = $employee->time_sheet($request->date)->shift->start_time;
         // $endTime   = Utility::getValByName('company_end_time');
         $endTime    = $employee->time_sheet($request->date)->shift->end_time;
+        $attendance = AttendanceEmployee::where('id', '!=', $id)->where('employee_id', '=', $request->employee_id)->where('date', '=', $request->date)->get()->toArray();
+        if($attendance)
+        {
+            return redirect()->route('attendanceemployee.index')->with('error', __('Employee attendance already created for the specified date.'));
+        }
         if(Auth::user()->type == 'employee')
         {
 

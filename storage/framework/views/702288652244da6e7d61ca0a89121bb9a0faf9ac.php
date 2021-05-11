@@ -19,8 +19,6 @@ $company_favicon=Utility::getValByName('company_favicon');
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/owlcarousel2/dist/assets/owl.theme.default.min.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/bootstrap-daterangepicker/daterangepicker.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/select2/dist/css/select2.css')); ?>">
-<!-- daterangepicker -->
-<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daterangepicker/daterangepicker.css" />
 <!-- Template CSS -->
 <link rel="stylesheet" href="<?php echo e(asset('assets/modules/bootstrap-timepicker/css/bootstrap-timepicker.css')); ?>">
 <link rel="stylesheet" href="<?php echo e(asset('assets/css/style.css')); ?>">

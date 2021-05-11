@@ -65,6 +65,24 @@ class TimeSheetController extends Controller
                 return redirect()->back()->with('error', $messages->first());
             }
 
+            // redundant timesheet check
+            $redundant_results = TimeSheet::where('employee_id', $request['employee_id'])
+                                            ->where(function($q) use($request){
+                                                $q->orWhere(function($q) use($request){
+                                                    $q->whereDate('date', '<=', $request['date']);
+                                                    $q->whereDate('date_to', '>=', $request['date']);
+                                                });
+                                                $q->orWhere(function($q) use($request){
+                                                    $q->whereDate('date', '<=', $request['date_to']);
+                                                    $q->whereDate('date_to', '>=', $request['date_to']);
+                                                });
+                                            })
+                                            ->get();
+            if(count($redundant_results) > 0){
+                return redirect()->back()->with('error', 'This employee has already been assigned a timesheet in the duration specified.');
+            }
+                                            
+
             $timeSheet = new Timesheet();
             if(\Auth::user()->type == 'employee')
             {
@@ -129,6 +147,24 @@ class TimeSheetController extends Controller
                 $messages = $validator->getMessageBag();
 
                 return redirect()->back()->with('error', $messages->first());
+            }
+
+            // redundant timesheet check
+            $redundant_results = TimeSheet::where('id', '!=', $id)
+                                            ->where('employee_id', $request['employee_id'])
+                                            ->where(function($q) use($request){
+                                                $q->orWhere(function($q) use($request){
+                                                    $q->whereDate('date', '<=', $request['date']);
+                                                    $q->whereDate('date_to', '>=', $request['date']);
+                                                });
+                                                $q->orWhere(function($q) use($request){
+                                                    $q->whereDate('date', '<=', $request['date_to']);
+                                                    $q->whereDate('date_to', '>=', $request['date_to']);
+                                                });
+                                            })
+                                            ->get();
+            if(count($redundant_results) > 0){
+                return redirect()->back()->with('error', 'This employee has already been assigned a timesheet in the duration specified.');
             }
 
             $timeSheet = Timesheet::find($id);
